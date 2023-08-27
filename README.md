@@ -1,6 +1,8 @@
 # k3s-vagrant
 One step deploy a local cluster (1 master + 2 worker)  via virtualbox/vagrant
 
+**forked and edited from https://github.com/drriguz/k3s-vagrant.git**
+
 # Quick Start
 
 Make sure that you have properly installed the following:
@@ -10,8 +12,6 @@ Make sure that you have properly installed the following:
 
 ## Install K3s Cluster
 ```bash
-git clone https://github.com/drriguz/k3s-vagrant.git
-cd k3s-vagrant
 vagrant up
 ```
 
@@ -38,14 +38,14 @@ To access cluster directly from host use `kubectl` command, do:
 ```bash
 mkdir -p ~/.kube
 vagrant ssh -c "sudo cat /etc/rancher/k3s/k3s.yaml" > ~/.kube/config
-sed -i 's/127\.0\.0\.1/192\.168\.79\.100/g' ~/.kube/config
+sed -i 's/127\.0\.0\.1/192\.168\.56\.100/g' ~/.kube/config
 ```
 
 And then modify the ip address to the master ip address, eg:
 
 ```
     ...
-    server: https://192.168.79.100:6443
+    server: https://192.168.56.100:6443
     ...
 ```
 
@@ -61,7 +61,7 @@ Sometimes the k3s may fail to install due to network issue or other kinds of pro
 
 All available configurations are listed at the beginning of Vagrantfile:
 
-* NETWORK_BASE="192.168.79.10"
+* NETWORK_BASE="192.168.56.10"
 * K3S_VERSION ="v1.19.15+k3s2"
 
 * MASTER_CPUS   = 1
@@ -71,14 +71,3 @@ All available configurations are listed at the beginning of Vagrantfile:
 * NODE_MEMORY   = 4096
 
 If you would like to customize it, modify the value and then start installation.
-
-## Use local cache
-
-Manually download k3s binaries, and put it into ./cache/version, eg.
-
-```
-cache\
-    v1.19.15+k3s2\
-        sha256sum-amd64.txt
-        k3s
-```
