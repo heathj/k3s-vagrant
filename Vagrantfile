@@ -36,17 +36,17 @@ TEMPLATE
 end
 
 def generate_wg_peers(num_nodes, external_ip_base, internal_ip_base)
-    peersList =[]
+    peers_list =[]
     for i in 0..num_nodes
         `wg genkey | tee privatekey | wg pubkey > publickey`
         public_key = File.read("publickey").strip
         private_key = File.read("privatekey").strip
         File.delete("publickey")
         File.delete("privatekey")
-        peer_list.append({:public_key => public_key, :private_key => private_key, :external_ip => "#{external_ip_base}#{i}", :internal_ip => "#{internal_ip_base}#{i}"})
+        peers_list.append({:public_key => public_key, :private_key => private_key, :external_ip => "#{external_ip_base}#{i}", :internal_ip => "#{internal_ip_base}#{i}"})
     end
 
-    return peer_list
+    return peers_list
 end
 
 def peer_list_to_conf(peer_list)
@@ -79,7 +79,7 @@ def write_wg_conf(num_nodes, external_ip_base, internal_ip_base)
 end
 
 Vagrant.configure("2") do |config|
-    `rm *.confg`
+    `rm *.conf`
     wg_conf = write_wg_conf(NUM_NODE, EXTERNAL_IP_BASE, INTERNAL_IP_BASE)
     config.vm.box = "ubuntu/kinetic64"
     config.vm.box_check_update = false
@@ -87,17 +87,22 @@ Vagrant.configure("2") do |config|
         vb.memory = NODE_MEMORY
         vb.cpus = NODE_CPUS
     end
-    config.vm.provision "shell", path: "common.sh",  
-        env: {"WG_CONFIG_FILE" => "#{key}.conf"}
 
-    wg_conf.each_with_index.map do |key, value, i|
-        if i == 0 do
+    master_external_ip = "undefined"
+    wg_conf.each_with_index.map do |k, i|
+        key = k[0]
+        value = k[1]
+        if i == 0
+            master_external_ip = value[:interface][:external_ip]
+            config.vm.define "master", primary: true do |master|
                 master.vm.provider "virtualbox" do |vb|
                     vb.memory = MASTER_MEMORY
                     vb.cpus = MASTER_CPUS
                 end
                 master.vm.network "private_network", ip: value[:interface][:external_ip]
                 master.vm.hostname = "master"
+                master.vm.provision "shell", path: "common.sh",  
+                    env: {"WG_CONFIG_FILE" => "#{key}.conf"}
                 master.vm.provision "shell", 
                     env: {"MASTER_EXTERNAL_IP" => value[:interface][:external_ip], "MASTER_INTERNAL_IP" => value[:interface][:internal_ip], "K3S_VERSION" => K3S_VERSION}, 
                     path: "install-master.sh"
@@ -105,11 +110,13 @@ Vagrant.configure("2") do |config|
             next
         end
 
-        config.vm.define "node0#{i}" do |node|        
+        config.vm.define "node0#{i}" do |node|
             node.vm.network "private_network", ip: value[:interface][:external_ip]
-            node.vm.hostname = "node0#{i}"
+            node.vm.hostname = "node0#{i}"        
+            node.vm.provision "shell", path: "common.sh",  
+                env: {"WG_CONFIG_FILE" => "#{key}.conf"}
             node.vm.provision "shell", path: "install-node.sh", 
-                env: {"MASTER_EXTERNAL_IP" => MASTER_EXTERNAL_IP, "K3S_VERSION" => K3S_VERSION, "NODE_EXTERNAL_IP" => value[:interface][:external_ip], "NODE_INTERNAL_IP" => value[:interface][:external_ip]}
+                env: {"MASTER_EXTERNAL_IP" => master_external_ip, "K3S_VERSION" => K3S_VERSION, "NODE_EXTERNAL_IP" => value[:interface][:external_ip], "NODE_INTERNAL_IP" => value[:interface][:external_ip]}
         end
     end
 end
