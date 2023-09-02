@@ -92,9 +92,6 @@ Vagrant.configure("2") do |config|
     wg_conf.each_with_index.map do |k, i|
         key = k[0]
         value = k[1]
-
-        puts "key #{key}"
-        puts "value #{value}"
         if i == 0
             master_external_ip = value[:interface][:external_ip]
             config.vm.define "master", primary: true do |master|
@@ -119,7 +116,7 @@ Vagrant.configure("2") do |config|
             node.vm.provision "shell", path: "common.sh",  
                 env: {"WG_CONFIG_FILE" => "#{key}.conf"}
             node.vm.provision "shell", path: "install-node.sh", 
-                env: {"MASTER_EXTERNAL_IP" => master_external_ip, "K3S_VERSION" => K3S_VERSION, "NODE_EXTERNAL_IP" => value[:interface][:external_ip], "NODE_INTERNAL_IP" => value[:interface][:external_ip]}
+                env: {"MASTER_EXTERNAL_IP" => master_external_ip, "K3S_VERSION" => K3S_VERSION, "NODE_EXTERNAL_IP" => value[:interface][:external_ip], "NODE_INTERNAL_IP" => value[:interface][:internal_ip]}
         end
     end
 end
