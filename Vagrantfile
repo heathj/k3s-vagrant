@@ -10,21 +10,21 @@ NUM_NODE=2
 NODE_CPUS     = 2
 NODE_MEMORY   = 2048
 
-def generate_peer(peer)
+def generate_peer(peer, port=51871)
     template = <<TEMPLATE
 [Peer]
-Endpoint: #{peer[:external_ip]}
-PublicKey: #{peer[:public_key]}
-AllowedIPs: #{peer[:internal_ip]}
+Endpoint= #{peer[:external_ip]}:#{port}
+PublicKey= #{peer[:public_key]}
+AllowedIPs= #{peer[:internal_ip]}/32
 TEMPLATE
 end
 
-def generate_interface(node)
+def generate_interface(node, port=51871)
     template = <<TEMPLATE
 [Interface]
-PrivateKey: #{node[:private_key]}
-Address: #{node[:internal_ip]}
-ListenPort: 51871
+PrivateKey= #{node[:private_key]}
+Address= #{node[:internal_ip]}
+ListenPort= #{port}
 TEMPLATE
 end
 
