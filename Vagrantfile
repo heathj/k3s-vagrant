@@ -13,18 +13,18 @@ NODE_MEMORY   = 2048
 def generate_peer(peer, port=51871)
     template = <<TEMPLATE
 [Peer]
-Endpoint= #{peer[:external_ip]}:#{port}
-PublicKey= #{peer[:public_key]}
-AllowedIPs= #{peer[:internal_ip]}/32
+Endpoint = #{peer[:external_ip]}:#{port}
+PublicKey = #{peer[:public_key]}
+AllowedIPs = #{peer[:internal_ip]}/32
 TEMPLATE
 end
 
 def generate_interface(node, port=51871)
     template = <<TEMPLATE
 [Interface]
-PrivateKey= #{node[:private_key]}
-Address= #{node[:internal_ip]}
-ListenPort= #{port}
+PrivateKey = #{node[:private_key]}
+Address = #{node[:internal_ip]}
+ListenPort = #{port}
 TEMPLATE
 end
 
@@ -92,6 +92,9 @@ Vagrant.configure("2") do |config|
     wg_conf.each_with_index.map do |k, i|
         key = k[0]
         value = k[1]
+
+        puts "key #{key}"
+        puts "value #{value}"
         if i == 0
             master_external_ip = value[:interface][:external_ip]
             config.vm.define "master", primary: true do |master|
