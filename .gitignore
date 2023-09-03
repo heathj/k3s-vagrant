@@ -3,3 +3,4 @@
 cache/
 node-token
 *.conf
+test.yml
