@@ -4,11 +4,11 @@ EXTERNAL_IP_BASE="192.168.56.10"
 INTERNAL_IP_BASE="10.0.0.1"
 
 MASTER_CPUS   = 1
-MASTER_MEMORY = 2048
+MASTER_MEMORY = 1024
 
-NUM_NODE=2
-NODE_CPUS     = 2
-NODE_MEMORY   = 2048
+NUM_NODE      = 2
+NODE_CPUS     = 1
+NODE_MEMORY   = 1024
 
 def generate_peer(peer, port=51871)
     template = <<TEMPLATE
@@ -78,9 +78,13 @@ def write_wg_conf(num_nodes, external_ip_base, internal_ip_base)
     return conf
 end
 
+wg_conf = {}
 Vagrant.configure("2") do |config|
-    `rm *.conf`
-    wg_conf = write_wg_conf(NUM_NODE, EXTERNAL_IP_BASE, INTERNAL_IP_BASE)
+    config.trigger.after :up do |trigger|
+        puts "GO"
+        `rm *.conf`
+        wg_conf = write_wg_conf(NUM_NODE, EXTERNAL_IP_BASE, INTERNAL_IP_BASE)
+    end
     config.vm.box = "ubuntu/kinetic64"
     config.vm.box_check_update = false
     config.vm.provider "virtualbox" do |vb|
@@ -102,7 +106,7 @@ Vagrant.configure("2") do |config|
                 master.vm.network "private_network", ip: value[:interface][:external_ip]
                 master.vm.hostname = "master"
                 master.vm.provision "shell", path: "common.sh",  
-                    env: {"WG_CONFIG_FILE" => "#{key}.conf"}
+                    env: {"WG_CONFIG_FILE" => "#{key}.conf", "INTERNAL_IP_BASE"=> INTERNAL_IP_BASE}
                 master.vm.provision "shell", 
                     env: {"MASTER_EXTERNAL_IP" => value[:interface][:external_ip], "MASTER_INTERNAL_IP" => value[:interface][:internal_ip], "K3S_VERSION" => K3S_VERSION}, 
                     path: "install-master.sh"
@@ -114,7 +118,7 @@ Vagrant.configure("2") do |config|
             node.vm.network "private_network", ip: value[:interface][:external_ip]
             node.vm.hostname = "node0#{i}"        
             node.vm.provision "shell", path: "common.sh",  
-                env: {"WG_CONFIG_FILE" => "#{key}.conf"}
+                env: {"WG_CONFIG_FILE" => "#{key}.conf", "INTERNAL_IP_BASE"=> INTERNAL_IP_BASE}
             node.vm.provision "shell", path: "install-node.sh", 
                 env: {"MASTER_EXTERNAL_IP" => master_external_ip, "K3S_VERSION" => K3S_VERSION, "NODE_EXTERNAL_IP" => value[:interface][:external_ip], "NODE_INTERNAL_IP" => value[:interface][:internal_ip]}
         end
