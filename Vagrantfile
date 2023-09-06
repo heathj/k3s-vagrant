@@ -81,7 +81,6 @@ end
 wg_conf = {}
 Vagrant.configure("2") do |config|
     config.trigger.after :up do |trigger|
-        puts "GO"
         `rm *.conf`
         wg_conf = write_wg_conf(NUM_NODE, EXTERNAL_IP_BASE, INTERNAL_IP_BASE)
     end

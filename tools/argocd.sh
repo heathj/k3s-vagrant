@@ -1,5 +1,6 @@
 #/bin/bash
-set -e
+set-e 
+
 SERVER=localhost:9999
 ARGOCD=argocd
 ARGOCD_NAMESPACE=argocd
@@ -22,12 +23,8 @@ then
 fi
 
 # the secret doesn't show up right away
-sleep 180
-until PASSWORD=$(kubectl get secret argocd-initial-admin-secret -n ${ARGOCD_NAMESPACE}  -o json | jq '  {name: .metadata.name,data: .data|map_values(@base64d)}' | jq -r '.data.password')
-do
-    echo "waiting for secret..."
-    sleep 20
-done
+kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-server -n argocd --timeout=600s
+PASSWORD=$(kubectl get secret argocd-initial-admin-secret -n ${ARGOCD_NAMESPACE}  -o json | jq '  {name: .metadata.name,data: .data|map_values(@base64d)}' | jq -r '.data.password')
 kubectl port-forward service/argocd-server -n ${ARGOCD_NAMESPACE} 9999:https &> /dev/null &
 ${ARGOCD} login ${SERVER} --insecure --username ${USERNAME} --password ${PASSWORD}
 kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
