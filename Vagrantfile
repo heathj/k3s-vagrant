@@ -110,6 +110,8 @@ Vagrant.configure("2") do |config|
                 master.vm.provision "shell", 
                     env: {"MASTER_EXTERNAL_IP" => value[:interface][:external_ip], "MASTER_INTERNAL_IP" => value[:interface][:internal_ip], "K3S_VERSION" => K3S_VERSION}, 
                     path: "install-master.sh"
+                master.vm.provision "shell",
+                    path: "tools/argocd.sh"
             end
             next
         end
