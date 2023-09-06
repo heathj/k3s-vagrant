@@ -24,3 +24,4 @@ fi
 ${ARGOCD} login ${SERVER} --insecure --username ${USERNAME} --password ${PASSWORD}
 kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
 ${ARGOCD} app create ${APP_NAME} --repo ${REPO_NAME} --path ${REPO_PATH} --dest-server https://kubernetes.default.svc --dest-namespace ${NAMESPACE} --server ${SERVER} --insecure
+argocd app sync ${APP_NAME}
