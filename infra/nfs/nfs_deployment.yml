@@ -30,7 +30,7 @@ spec:
           securityContext:
             privileged: true
           volumeMounts:
-            - name: storage
+            - name: treebeard
               mountPath: /exports
           resources:
             requests:
@@ -40,7 +40,7 @@ spec:
               cpu: 1000m
               memory: 1Gi
       volumes:
-        - name: storage
+        - name: treebeard
           hostPath:
             path: /mnt/treebeard
             type: DirectoryOrCreate
