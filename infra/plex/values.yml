@@ -2,10 +2,6 @@ image:
   registry: lscr.io/linuxserver
   repository: plex
   tag: "arm64v8-latest"
-ingress:
-  enabled: true
-  ingressClassName: "traefik"
-  url: "https://plex.jacobheath.xyz"
 pms:
   # the volume size to provision for the PMS database
   configStorage: 2Gi
@@ -21,6 +17,7 @@ service:
 extraVolumeMounts:
   - name: treebeard
     mountPath: /mnt/
+    readOnly: true
 extraVolumes:
   - name: treebeard
     nfs:
