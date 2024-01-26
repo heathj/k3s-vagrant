@@ -1,0 +1,1 @@
+/treebeard *(ro,fsid=1,async,no_auth_nlm,subtree_check,insecure,no_root_squash)

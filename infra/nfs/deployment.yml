@@ -19,7 +19,7 @@ spec:
           image: itsthenetwork/nfs-server-alpine:11-arm
           env:
             - name: SHARED_DIRECTORY
-              value: /exports
+              value: UNUSED # mounting a configmap over this
           ports:
             - name: nfs
               containerPort: 2049
@@ -31,7 +31,12 @@ spec:
             privileged: true
           volumeMounts:
             - name: treebeard
-              mountPath: /exports
+              mountPath: /treebeard
+            - name: largedrive
+              mountPath: /largedrive
+            - name: exports-volume
+              mountPath: /etc/exports
+              subPath: exports
           resources:
             requests:
               cpu: 100m
@@ -44,3 +49,10 @@ spec:
           hostPath:
             path: /mnt/treebeard
             type: DirectoryOrCreate
+        - name: largedrive
+          hostPath:
+            path: /mnt/largedrive
+            type: DirectoryOrCreate
+        - name: exports-volume
+          configMap:
+            name: exports

@@ -1,7 +1,7 @@
 image:
   registry: lscr.io/linuxserver
   repository: plex
-  tag: "arm64v8-latest"
+  tag: "arm64v8-1.32.8"
 pms:
   # the volume size to provision for the PMS database
   configStorage: 2Gi
@@ -22,4 +22,4 @@ extraVolumes:
   - name: treebeard
     nfs:
       server: nfs-service.storage.svc.cluster.local
-      path: /
+      path: /treebeard

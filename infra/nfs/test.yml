@@ -1,7 +1,7 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: nfs-direct7
+  name: nfs-direct2
   namespace: storage
 spec:
   containers:
@@ -24,4 +24,4 @@ spec:
     - name: data
       nfs:
         server: nfs-service.storage.svc.cluster.local
-        path: /test
+        path: /
