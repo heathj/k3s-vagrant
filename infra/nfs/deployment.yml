@@ -19,7 +19,7 @@ spec:
           image: itsthenetwork/nfs-server-alpine:11-arm
           env:
             - name: SHARED_DIRECTORY
-              value: UNUSED # mounting a configmap over this
+              value: /treebeard # mounting a configmap over this
           ports:
             - name: nfs
               containerPort: 2049
@@ -30,10 +30,12 @@ spec:
           securityContext:
             privileged: true
           volumeMounts:
+            - name: mnt
+              mountPath: /mnt
             - name: treebeard
-              mountPath: /treebeard
+              mountPath: /mnt/treebeard
             - name: largedrive
-              mountPath: /largedrive
+              mountPath: /mnt/largedrive
             - name: exports-volume
               mountPath: /etc/exports
               subPath: exports
@@ -52,6 +54,10 @@ spec:
         - name: largedrive
           hostPath:
             path: /mnt/largedrive
+            type: DirectoryOrCreate
+        - name: mnt
+          hostPath:
+            path: /nfsmnt
             type: DirectoryOrCreate
         - name: exports-volume
           configMap:

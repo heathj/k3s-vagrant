@@ -1,18 +1,18 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: nfs-direct2
+  name: test7
   namespace: storage
 spec:
   containers:
-    - name: busybox
-      image: busybox
+    - name: test
+      image: ubuntu
       command:
         - sleep
         - "3600"
       volumeMounts:
         - name: data
-          mountPath: /demo/data
+          mountPath: /demo
       resources:
         requests:
           cpu: 100m
@@ -24,4 +24,4 @@ spec:
     - name: data
       nfs:
         server: nfs-service.storage.svc.cluster.local
-        path: /
+        path: /treebeard
