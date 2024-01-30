@@ -1,0 +1,6 @@
+externalDomain: files.jacobheath.xyz
+ingress:
+  enabled: true
+  ingressClassName: traefik
+features:
+  demoUsers: true
