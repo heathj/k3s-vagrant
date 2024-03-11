@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euox pipefail
 
-kubectx home-lab
+kubectl config use-context home-lab
 kubectl create namespace owncloud --dry-run=client -o yaml | kubectl apply -f -
 git clone https://github.com/owncloud/ocis-charts.git ./ocis-charts
 cd ./ocis-charts
