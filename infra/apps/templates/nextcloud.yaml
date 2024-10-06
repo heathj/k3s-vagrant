@@ -12,9 +12,10 @@ spec:
     chart: nextcloud
     targetRevision: 4.6.4
     helm:
-      values: {{ .Files.Get "values/nextcloud_values.yaml" }}
+      values: |
+        {{- .Files.Get "values/nextcloud_values.yaml" | nindent 8 }}
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: argo
-  syncPolicy:
-    {{ .Values.spec.syncPolicy | toYaml | nindent 4 }}
+  syncPolicy: 
+    {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}

@@ -2,8 +2,8 @@ spec:
   namespace: argo
   syncPolicy:
     automated:
-    selfHeal: true
-    prune: true
+      selfHeal: true
+      prune: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
