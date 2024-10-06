@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: home-lab-apps
+  namespace: argo
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=true
+  source:
+    repoURL: "https://github.com/heathj/k3s-vagrant"
+    path: "infra/apps"
+    targetRevision: HEAD

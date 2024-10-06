@@ -1,0 +1,14 @@
+spec:
+  namespace: argo
+  syncPolicy:
+    automated:
+    selfHeal: true
+    prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/argoproj/argocd-example-apps
+    targetRevision: HEAD

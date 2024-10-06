@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nextcloud
+  namespace: {{ .Values.spec.namespace }}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://nextcloud.github.io/helm/
+    chart: nextcloud
+    targetRevision: 4.6.4
+    helm:
+      values: {{ .Files.Get "values/nextcloud_values.yaml" }}
+  destination:
+    server: {{ .Values.spec.destination.server }}
+    namespace: argo
+  syncPolicy:
+    {{ .Values.spec.syncPolicy | toYaml | nindent 4 }}
