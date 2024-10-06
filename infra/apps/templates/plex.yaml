@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://raw.githubusercontent.com/plexinc/pms-docker/gh-pages
-    chart: plex
+    chart: plex-media-server
     targetRevision: 0.4.0
     helm:
       values: |
