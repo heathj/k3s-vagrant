@@ -16,6 +16,6 @@ spec:
         {{- .Files.Get "values/nextcloud_values.yaml" | nindent 8 }}
   destination:
     server: {{ .Values.spec.destination.server }}
-    namespace: argo
+    namespace: nextcloud
   syncPolicy: 
     {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
