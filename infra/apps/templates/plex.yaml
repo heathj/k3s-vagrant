@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: plex
+  namespace: {{ .Values.spec.namespace }}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://raw.githubusercontent.com/plexinc/pms-docker/gh-pages
+    chart: plex
+    targetRevision: 0.1.8
+    helm:
+      values: |
+        {{- .Files.Get "values/plex_values.yaml" | nindent 8 }}
+  destination:
+    server: {{ .Values.spec.destination.server }}
+    namespace: plex
+  syncPolicy: 
+    {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
