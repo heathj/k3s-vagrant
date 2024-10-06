@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://raw.githubusercontent.com/plexinc/pms-docker/gh-pages
     chart: plex
-    targetRevision: 0.1.8
+    targetRevision: 0.4.0
     helm:
       values: |
         {{- .Files.Get "values/plex_values.yaml" | nindent 8 }}
