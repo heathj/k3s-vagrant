@@ -23,3 +23,6 @@ extraVolumes:
     nfs:
       server: nfs-service.storage.svc.cluster.local
       path: /treebeard
+ingress:
+  enabled: true
+  ingressClassName: traefik
