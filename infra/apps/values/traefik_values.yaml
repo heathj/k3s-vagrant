@@ -97,27 +97,32 @@ podSecurityPolicy:
   enabled: false
 ports:
   plex:
-    expose: true
+    expose:
+      default: true
     exposedPort: 32400
     port: 32400
     protocol: TCP
   metrics:
-    expose: false
+    expose:
+      default: false
     exposedPort: 9100
     port: 9100
     protocol: TCP
   traefik:
-    expose: false
+    expose:
+      default: false
     exposedPort: 9000
     port: 9000
     protocol: TCP
   web:
-    expose: true
+    expose:
+      default: true
     exposedPort: 80
     port: 8000
     protocol: TCP
   websecure:
-    expose: true
+    expose:
+      default: true
     exposedPort: 443
     http3:
       enabled: false
