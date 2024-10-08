@@ -60,4 +60,4 @@ spec:
             type: DirectoryOrCreate
         - name: exports-volume
           configMap:
-            name: exports
+            name: nfs-exports
