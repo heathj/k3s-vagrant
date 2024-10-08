@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metrics
+  name: prometheus
   namespace: {{ .Values.spec.namespace }}
   annotations:
     argocd.argoproj.io/compare-options: ServerSideDiff=true
@@ -18,6 +18,6 @@ spec:
         {{- .Files.Get "values/prometheus_values.yaml" | nindent 8 }}
   destination:
     server: {{ .Values.spec.destination.server }}
-    namespace: metrics
+    namespace: prometheus
   syncPolicy: 
     {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
