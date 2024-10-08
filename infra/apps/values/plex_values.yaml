@@ -25,4 +25,5 @@ extraVolumes:
       path: /treebeard
 ingress:
   enabled: true
+  url: plex.jacobheath.xyz
   ingressClassName: traefik
