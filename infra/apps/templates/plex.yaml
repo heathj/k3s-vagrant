@@ -17,5 +17,10 @@ spec:
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: plex
+  ignoreDifferences:
+    - group: apps
+      kind: StatefulSet
+      jqPathExpressions:
+        - '.spec.volumeClaimTemplates[]?'
   syncPolicy: 
     {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
