@@ -21,7 +21,7 @@ extraVolumeMounts:
 extraVolumes:
   - name: treebeard
     nfs:
-      server: nfs-service.storage.svc.cluster.local
+      server: nfs-service.nfs.svc.cluster.local
       path: /treebeard
 ingress:
   enabled: true
