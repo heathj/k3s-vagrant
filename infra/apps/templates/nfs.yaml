@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nfs
+  namespace: {{ .Values.spec.namespace }}
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/heathj/k3s-vagrant.git'
+    targetRevision: HEAD
+    path: infra/nfs
+  destination:
+    server: {{ .Values.spec.destination.server }}
+    namespace: nfs
+  syncPolicy: 
+    {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
