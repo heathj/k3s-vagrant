@@ -39,10 +39,6 @@ globalArguments:
 hostNetwork: false
 hub:
   enabled: false
-image:
-  pullPolicy: IfNotPresent
-  repository: rancher/mirrored-library-traefik
-  tag: 2.9.10
 ingressClass:
   enabled: true
   isDefaultClass: true
