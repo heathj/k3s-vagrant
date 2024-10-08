@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: cert-manager
   namespace: {{ .Values.spec.namespace }}
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
