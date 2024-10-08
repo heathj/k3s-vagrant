@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: {{ .Values.spec.namespace }}
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://traefik.github.io/charts
+    chart: traefik
+    targetRevision: 32.1.0
+    helm:
+      values: |
+        {{- .Files.Get "values/traefik_values.yaml" | nindent 8 }}
+  destination:
+    server: {{ .Values.spec.destination.server }}
+    namespace: traefik
+  syncPolicy: 
+    {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
