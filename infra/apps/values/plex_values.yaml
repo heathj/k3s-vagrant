@@ -25,7 +25,7 @@ extraVolumes:
       path: /treebeard
 ingress:
   enabled: true
-  url: plex.jacobheath.xyz
+  url: plexlocal.jacobheath.xyz
   ingressClassName: traefik
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
