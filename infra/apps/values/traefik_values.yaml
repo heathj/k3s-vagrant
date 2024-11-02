@@ -91,45 +91,45 @@ podSecurityContext:
   fsGroup: 65532
 podSecurityPolicy:
   enabled: false
-ports:
-  plex:
-    expose:
-      default: true
-    exposedPort: 32400
-    port: 32400
-    protocol: TCP
-  metrics:
-    expose:
-      default: false
-    exposedPort: 9100
-    port: 9100
-    protocol: TCP
-  traefik:
-    expose:
-      default: false
-    exposedPort: 9000
-    port: 9000
-    protocol: TCP
-  web:
-    expose:
-      default: true
-    exposedPort: 80
-    port: 8000
-    protocol: TCP
-  websecure:
-    expose:
-      default: true
-    exposedPort: 443
-    http3:
-      enabled: false
-    middlewares: []
-    port: 8443
-    protocol: TCP
-    tls:
-      certResolver: ""
-      domains: []
-      enabled: true
-      options: ""
+# ports:
+#   plex:
+#     expose:
+#       default: true
+#     exposedPort: 32400
+#     port: 32400
+#     protocol: TCP
+#   metrics:
+#     expose:
+#       default: false
+#     exposedPort: 9100
+#     port: 9100
+#     protocol: TCP
+#   traefik:
+#     expose:
+#       default: false
+#     exposedPort: 9000
+#     port: 9000
+#     protocol: TCP
+#   web:
+#     expose:
+#       default: true
+#     exposedPort: 80
+#     port: 8000
+#     protocol: TCP
+#   websecure:
+#     expose:
+#       default: true
+#     exposedPort: 443
+#     http3:
+#       enabled: false
+#     middlewares: []
+#     port: 8443
+#     protocol: TCP
+#     tls:
+#       certResolver: ""
+#       domains: []
+#       enabled: true
+#       options: ""
 priorityClassName: system-cluster-critical
 providers:
   kubernetesCRD:
