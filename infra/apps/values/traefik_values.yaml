@@ -91,7 +91,7 @@ podSecurityContext:
   fsGroup: 65532
 podSecurityPolicy:
   enabled: false
-# ports:
+ports: {}
 #   plex:
 #     expose:
 #       default: true
