@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://nimbolus.github.io/helm-charts
     chart: system-upgrade-controller
-    targetRevision: 0.14.1
+    targetRevision: 0.5.0
     helm:
       values: |
         {{- .Files.Get "values/system_upgrade_controller_values.yaml" | nindent 8 }}
