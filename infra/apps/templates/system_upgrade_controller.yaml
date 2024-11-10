@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: system-upgrade-controller
+  namespace: {{ .Values.spec.namespace }}
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://nimbolus.github.io/helm-charts
+    chart: system-upgrade-controller
+    targetRevision: 0.14.1
+    helm:
+      values: |
+        {{- .Files.Get "values/system_upgrade_controller_values.yaml" | nindent 8 }}
+  destination:
+    server: {{ .Values.spec.destination.server }}
+    namespace: system-upgrade
+  syncPolicy: 
+    {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
