@@ -1,0 +1,6 @@
+apiVersion: v2
+name: system-upgrade-plans
+description: Chart to configure system upgrade plans
+type: application
+version: 0.1.0
+appVersion: "1.0"

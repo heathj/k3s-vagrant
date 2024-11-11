@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nfs
+  name: system-upgrade-plans
   namespace: {{ .Values.spec.namespace }}
   annotations:
     argocd.argoproj.io/compare-options: ServerSideDiff=true
@@ -15,6 +15,6 @@ spec:
     path: infra/nfs
   destination:
     server: {{ .Values.spec.destination.server }}
-    namespace: nfs
+    namespace: system-upgrade
   syncPolicy: 
     {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
