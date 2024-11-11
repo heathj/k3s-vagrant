@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/heathj/charts/k3s-vagrant.git'
+    repoURL: 'https://github.com/heathj/infra/charts/k3s-vagrant.git'
     targetRevision: HEAD
     path: infra/nfs
   destination:
