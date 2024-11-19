@@ -15,6 +15,7 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - Validate=true
+      - ServerSideApply=true
   source:
     repoURL: "https://github.com/heathj/k3s-vagrant"
     path: "infra/apps"
