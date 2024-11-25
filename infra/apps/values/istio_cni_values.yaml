@@ -1,3 +1,5 @@
 global:
   platform: k3s
 profile: ambient
+cniConfDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
+cniBinDir: /var/lib/rancher/k3s/data/current/bin/
