@@ -4,3 +4,14 @@ postgresql:
   enabled: true
 redis:
   enabled: true
+metrics:
+  enabled: true
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+cronjob:
+  enabled: true
