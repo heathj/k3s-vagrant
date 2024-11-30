@@ -28,5 +28,5 @@ ingress:
   url: plex.jacobheath.xyz
   ingressClassName: istio
   annotations:
-    kubernetes.io/ingress.class: istio
+    # sidecar.istio.io/inject: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
