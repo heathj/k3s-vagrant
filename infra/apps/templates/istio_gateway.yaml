@@ -17,11 +17,11 @@ spec:
   project: default
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
-    chart: base
+    chart: gateway
     targetRevision: 1.24.1
     helm:
       values: |
-        {{- .Files.Get "values/istio_base_values.yaml" | nindent 8 }}
+        {{- .Files.Get "values/istio_gateway_values.yaml" | nindent 8 }}
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: istio-system
