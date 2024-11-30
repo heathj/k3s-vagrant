@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: 'https://github.com/heathj/k3s-vagrant.git'
     targetRevision: HEAD
-    path: infra/charts/system-upgrade-plans
+    path: infra/charts/system_upgrade_plans
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: system-upgrade
