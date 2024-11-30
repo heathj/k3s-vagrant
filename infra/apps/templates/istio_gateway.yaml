@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio-base
+  name: istio-gateway
   namespace: {{ .Values.spec.namespace }}
   annotations:
     argocd.argoproj.io/compare-options: ServerSideDiff=true
