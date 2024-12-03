@@ -26,7 +26,6 @@ extraVolumes:
 ingress:
   enabled: true
   url: plex.jacobheath.xyz
-  ingressClassName: istio
+  ingressClassName: traefik
   annotations:
-    # sidecar.istio.io/inject: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod

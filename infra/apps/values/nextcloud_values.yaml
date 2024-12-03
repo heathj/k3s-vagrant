@@ -1,8 +1,7 @@
 ingress:
   enabled: true
-  className: istio
+  className: traefik
   annotations:
-    # sidecar.istio.io/inject: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 postgresql:
   enabled: true
