@@ -13,6 +13,7 @@ postgresql:
   enabled: true
 redis:
   enabled: true
+  architecture: standalone
 metrics:
   enabled: true
 resources:
