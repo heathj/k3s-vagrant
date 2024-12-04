@@ -1,8 +1,14 @@
+nextcloud:
+  host: files.jacobheath.xyz
 ingress:
   enabled: true
   className: traefik
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    - hosts:
+        - files.jacobheath.xyz
+      secretName: files-jacobheath-xyz-tls
 postgresql:
   enabled: true
 redis:
