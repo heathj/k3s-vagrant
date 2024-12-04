@@ -9,6 +9,8 @@ ingress:
     - hosts:
         - files.jacobheath.xyz
       secretName: files-jacobheath-xyz-tls
+  internalDatabase:
+    enabled: false
 postgresql:
   enabled: true
 redis:
