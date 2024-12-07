@@ -1,14 +1,14 @@
 nextcloud:
   host: files.jacobheath.xyz
+  datadir: /mnt/largedrive/data
   extraVolumeMounts:
     - name: largedrive
-      mountPath: /var/www/html/data
-      subPath: data
+      mountPath: /mnt/largedrive
   extraVolumes:
     - name: largedrive
       nfs:
         server: nfs-service.nfs.svc.cluster.local
-        path: /largedrive/data
+        path: /largedrive
 ingress:
   enabled: true
   className: traefik
