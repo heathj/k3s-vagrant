@@ -9,15 +9,15 @@ nextcloud:
       nfs:
         server: nfs-service.nfs.svc.cluster.local
         path: /largedrive
-ingress:
-  enabled: true
-  className: traefik
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-  tls:
-    - hosts:
-        - files.jacobheath.xyz
-      secretName: files-jacobheath-xyz-tls
+  ingress:
+    enabled: true
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    tls:
+      - hosts:
+          - files.jacobheath.xyz
+        secretName: files-jacobheath-xyz-tls
   internalDatabase:
     enabled: false
 postgresql:
