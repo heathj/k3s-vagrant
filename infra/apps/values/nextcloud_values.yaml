@@ -34,11 +34,12 @@ externalDatabase:
 postgresql:
   enabled: true
   global:
-    auth:
-      existingSecret: *nextcloud-db-secret
-      secretKeys:
-        adminPasswordKey: *passwordKey
-        userPasswordKey: *passwordKey
+    postgresql:
+      auth:
+        existingSecret: *nextcloud-db-secret
+        secretKeys:
+          adminPasswordKey: *passwordKey
+          userPasswordKey: *passwordKey
 redis:
   enabled: true
   architecture: standalone
