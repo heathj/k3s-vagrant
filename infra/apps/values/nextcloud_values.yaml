@@ -1,6 +1,6 @@
 nextcloud:
   host: files.jacobheath.xyz
-  datadir: /mnt/largedrive/data
+  # datadir: /mnt/largedrive/data
   extraVolumeMounts:
     - name: largedrive
       mountPath: /mnt/largedrive
