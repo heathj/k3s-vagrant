@@ -4,6 +4,7 @@ nextcloud:
   extraVolumeMounts:
     - name: largedrive
       mountPath: /mnt/largedrive
+      readOnly: true
   extraVolumes:
     - name: largedrive
       nfs:
