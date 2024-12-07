@@ -20,11 +20,29 @@ nextcloud:
         secretName: files-jacobheath-xyz-tls
   internalDatabase:
     enabled: false
+  externalDatabase:
+    enabled: true
+    type: postgresql
+    host: nextcloud-postgresql:5432
+    existingSecret:
+      enabled: true
+      secretName: &nextcloud-db-secret nextcloud-db-secret
+      usernameKey: &usernameKey db-username
+      passwordKey: &passwordKey db-password
 postgresql:
   enabled: true
+  global:
+    auth:
+      existingSecret: *nextcloud-db-secret
+      secretKeys:
+        adminPasswordKey: *passwordKey
+        userPasswordKey: *passwordKey
 redis:
   enabled: true
   architecture: standalone
+  auth:
+    existingSecret: *nextcloud-db-secret
+    existingSecretPasswordKey: redis-password
 metrics:
   enabled: true
 resources:
