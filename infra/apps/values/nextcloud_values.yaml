@@ -23,12 +23,13 @@ nextcloud:
   externalDatabase:
     enabled: true
     type: postgresql
-    host: nextcloud-postgresql:5432
     existingSecret:
       enabled: true
       secretName: &nextcloud-db-secret nextcloud-db-secret
       usernameKey: &usernameKey db-username
       passwordKey: &passwordKey db-password
+      hostKey: db-hostname-or-ip
+      databaseKey: db-name
 postgresql:
   enabled: true
   global:
