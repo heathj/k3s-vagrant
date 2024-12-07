@@ -10,27 +10,27 @@ nextcloud:
       nfs:
         server: nfs-service.nfs.svc.cluster.local
         path: /largedrive
-  ingress:
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    - hosts:
+        - files.jacobheath.xyz
+      secretName: files-jacobheath-xyz-tls
+internalDatabase:
+  enabled: false
+externalDatabase:
+  enabled: true
+  type: postgresql
+  existingSecret:
     enabled: true
-    className: traefik
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-    tls:
-      - hosts:
-          - files.jacobheath.xyz
-        secretName: files-jacobheath-xyz-tls
-  internalDatabase:
-    enabled: false
-  externalDatabase:
-    enabled: true
-    type: postgresql
-    existingSecret:
-      enabled: true
-      secretName: &nextcloud-db-secret nextcloud-db-secret
-      usernameKey: &usernameKey db-username
-      passwordKey: &passwordKey db-password
-      hostKey: db-hostname-or-ip
-      databaseKey: db-name
+    secretName: &nextcloud-db-secret nextcloud-db-secret
+    usernameKey: &usernameKey db-username
+    passwordKey: &passwordKey db-password
+    hostKey: db-hostname-or-ip
+    databaseKey: db-name
 postgresql:
   enabled: true
   global:
