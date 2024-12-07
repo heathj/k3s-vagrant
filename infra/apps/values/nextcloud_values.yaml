@@ -27,3 +27,12 @@ resources:
     memory: 4Gi
 cronjob:
   enabled: true
+extraVolumeMounts:
+  - name: largedrive
+    mountPath: /var/www/html/data
+    readOnly: false
+extraVolumes:
+  - name: largedrive
+    nfs:
+      server: nfs-service.nfs.svc.cluster.local
+      path: /largedrive/data
