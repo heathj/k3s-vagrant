@@ -14,11 +14,13 @@ nextcloud:
         server: nfs-service.nfs.svc.cluster.local
         path: /largedrive
 livenessProbe:
+  enabled: true
   initialDelaySeconds: 300
   timeoutSeconds: 5
   periodSeconds: 60
   failureThreshold: 5
 readinessProbe:
+  enabled: true
   initialDelaySeconds: 300
   timeoutSeconds: 5
   periodSeconds: 60
