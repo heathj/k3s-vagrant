@@ -14,7 +14,7 @@ ingress:
   enabled: true
   className: traefik
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirect@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirect-to-https@kubernetescrd
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - hosts:
