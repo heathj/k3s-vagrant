@@ -1,5 +1,8 @@
+domain: &domain files.jacobheath.xyz
 nextcloud:
-  host: files.jacobheath.xyz
+  host: *domain
+  trustedDomains:
+    - *domain
   # datadir: /mnt/largedrive/data
   extraVolumeMounts:
     - name: largedrive
@@ -10,6 +13,16 @@ nextcloud:
       nfs:
         server: nfs-service.nfs.svc.cluster.local
         path: /largedrive
+livenessProbe:
+  initialDelaySeconds: 300
+  timeoutSeconds: 5
+  periodSeconds: 60
+  failureThreshold: 5
+readinessProbe:
+  initialDelaySeconds: 300
+  timeoutSeconds: 5
+  periodSeconds: 60
+  failureThreshold: 5
 ingress:
   enabled: true
   className: traefik
@@ -18,7 +31,7 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - hosts:
-        - files.jacobheath.xyz
+        - *domain
       secretName: files-jacobheath-xyz-tls
 internalDatabase:
   enabled: false
