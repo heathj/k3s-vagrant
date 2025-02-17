@@ -49,13 +49,14 @@ externalDatabase:
     databaseKey: db-name
 postgresql:
   enabled: true
-  resources:
-    limits:
-      cpu: "2"
-      memory: 2Gi
-    requests:
-      cpu: "2"
-      memory: 2Gi
+  primary:
+    resources:
+      limits:
+        cpu: "2"
+        memory: 2Gi
+      requests:
+        cpu: "2"
+        memory: 2Gi
   global:
     postgresql:
       auth:
