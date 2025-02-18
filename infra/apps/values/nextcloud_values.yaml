@@ -3,7 +3,6 @@ nextcloud:
   host: *domain
   trustedDomains:
     - *domain
-  datadir: /mnt/largedrive/data
   extraVolumeMounts:
     - name: largedrive
       mountPath: /mnt/largedrive
