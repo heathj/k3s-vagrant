@@ -21,5 +21,11 @@ kind: PersistentVolumeClaim
 metadata:
   name: large-drive-data-dir-pvc
 spec:
-  storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Ti
   volumeName: large-drive-data-dir-pv
+  storageClassName: ""
+  volumeMode: Filesystem
