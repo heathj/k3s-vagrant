@@ -3,9 +3,10 @@ nextcloud:
   host: *domain
   trustedDomains:
     - *domain
-# persistence:
-#   enabled: true
-#   existingClaim: nextcloud-pvc
+persistence:
+  enabled: true
+  nextcloudData:
+    existingClaim: large-drive-data-dir-pvc
 livenessProbe:
   enabled: true
   initialDelaySeconds: 100
