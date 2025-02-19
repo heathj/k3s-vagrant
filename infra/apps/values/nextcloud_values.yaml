@@ -3,15 +3,9 @@ nextcloud:
   host: *domain
   trustedDomains:
     - *domain
-  extraVolumeMounts:
-    - name: largedrive
-      mountPath: /mnt/largedrive
-      readOnly: true
-  extraVolumes:
-    - name: largedrive
-      nfs:
-        server: nfs-service.nfs.svc.cluster.local
-        path: /largedrive
+# persistence:
+#   enabled: true
+#   existingClaim: nextcloud-pvc
 livenessProbe:
   enabled: true
   initialDelaySeconds: 100

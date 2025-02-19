@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: large-drive-data-dir-pv
+spec:
+  capacity:
+    storage: 1Ti
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  nfs:
+    server: nfs-service.nfs.svc.cluster.local
+    path: /largedrive
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: large-drive-data-dir-pvc
+spec:
+  storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
+  volumeName: large-drive-data-dir-pv
