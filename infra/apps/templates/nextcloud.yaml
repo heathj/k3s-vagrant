@@ -13,9 +13,6 @@ spec:
     repoURL: https://github.com/heathj/k3s-vagrant.git
     targetRevision: HEAD
     path: infra/charts/nextcloud_pvc
-    helm:
-      valuesFiles:
-        - values.yaml
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: nextcloud
