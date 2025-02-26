@@ -1,0 +1,86 @@
+nextcloud:
+  domain: &domain files.jacobheath.xyz
+  nextcloud:
+    host: *domain
+    trustedDomains:
+      - *domain
+  persistence:
+    enabled: true
+    nextcloudData:
+      existingClaim: large-drive-data-dir-pvc
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 100
+    timeoutSeconds: 5
+    periodSeconds: 60
+    failureThreshold: 5
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 100
+    timeoutSeconds: 5
+    periodSeconds: 60
+    failureThreshold: 5
+  ingress:
+    enabled: true
+    className: traefik
+    annotations:
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-redirect-to-https@kubernetescrd
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    tls:
+      - hosts:
+          - *domain
+        secretName: files-jacobheath-xyz-tls
+  internalDatabase:
+    enabled: false
+  externalDatabase:
+    enabled: true
+    type: postgresql
+    existingSecret:
+      enabled: true
+      secretName: &nextcloud-db-secret nextcloud-db-secret
+      usernameKey: &usernameKey db-username
+      passwordKey: &passwordKey db-password
+      hostKey: db-hostname-or-ip
+      databaseKey: db-name
+  postgresql:
+    enabled: true
+    primary:
+      resources:
+        limits:
+          cpu: "2"
+          memory: 2Gi
+        requests:
+          cpu: "2"
+          memory: 2Gi
+    global:
+      postgresql:
+        auth:
+          existingSecret: *nextcloud-db-secret
+          secretKeys:
+            adminPasswordKey: *passwordKey
+            userPasswordKey: *passwordKey
+  redis:
+    enabled: true
+    master:
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 500m
+          memory: 1Gi
+    architecture: standalone
+    auth:
+      existingSecret: *nextcloud-db-secret
+      existingSecretPasswordKey: redis-password
+  metrics:
+    enabled: true
+  resources:
+    limits:
+      cpu: 2
+      memory: 4Gi
+    requests:
+      cpu: 2
+      memory: 4Gi
+  cronjob:
+    enabled: true

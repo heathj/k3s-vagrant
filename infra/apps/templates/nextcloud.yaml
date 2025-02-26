@@ -10,12 +10,10 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://nextcloud.github.io/helm/
-    chart: nextcloud
-    targetRevision: 6.6.3
-    helm:
-      values: |
-        {{- .Files.Get "values/nextcloud_values.yaml" | nindent 8 }}
+    source:
+    repoURL: 'https://github.com/heathj/k3s-vagrant.git'
+    targetRevision: HEAD
+    path: infra/charts/nextcloud_pvc
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: nextcloud

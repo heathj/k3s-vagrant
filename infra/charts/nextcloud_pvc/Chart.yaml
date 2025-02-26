@@ -1,0 +1,11 @@
+apiVersion: v2
+name: nextcloud_pvc
+description: The nextcloud chart plus a PVC
+type: application
+version: 0.1.0
+appVersion: "1.0"
+
+depedencies:
+  - name: nextcloud
+    version: 6.6.3
+    repository: https://nextcloud.github.io/helm/

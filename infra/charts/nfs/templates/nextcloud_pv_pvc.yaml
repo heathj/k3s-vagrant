@@ -13,19 +13,3 @@ spec:
   nfs:
     server: nfs-service.nfs.svc.cluster.local
     path: /largedrive
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: large-drive-data-dir-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Ti
-  volumeName: large-drive-data-dir-pv
-  storageClassName: ""
-  volumeMode: Filesystem
