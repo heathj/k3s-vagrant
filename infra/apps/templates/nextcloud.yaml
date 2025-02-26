@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/heathj/k3s-vagrant.git'
+    repoURL: https://github.com/heathj/k3s-vagrant.git
     targetRevision: HEAD
     path: infra/charts/nextcloud_pvc
   destination:
