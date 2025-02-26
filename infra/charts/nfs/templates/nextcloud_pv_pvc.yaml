@@ -10,6 +10,9 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: ""
+  claimRef:
+    namespace: nextcloud
+    name: large-drive-data-dir-pvc
   nfs:
     server: nfs-service.nfs.svc.cluster.local
     path: /largedrive
