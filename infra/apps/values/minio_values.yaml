@@ -9,3 +9,17 @@ rootUser: rootuser
 rootPassword: rootpass123
 nodeSelector:
   jacobheath.xyz/usb-external-storage: "true"
+extraVolumes:
+  - name: treebeard
+    hostPath:
+      path: /mnt/treebeard
+      type: DirectoryOrCreate
+  - name: largedrive
+    hostPath:
+      path: /mnt/largedrive
+      type: DirectoryOrCreate
+extraVolumeMounts:
+  - name: treebeard
+    mountPath: /mnt/treebeard
+  - name: largedrive
+    mountPath: /mnt/largedrive
