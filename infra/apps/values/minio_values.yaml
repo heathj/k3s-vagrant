@@ -7,3 +7,5 @@ persistence:
 mode: standalone
 rootUser: rootuser
 rootPassword: rootpass123
+nodeSelector:
+  jacobheath.xyz/usb-external-storage: "true"
