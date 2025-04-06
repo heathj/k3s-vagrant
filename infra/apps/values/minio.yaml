@@ -1,0 +1,9 @@
+resources:
+  requests:
+    memory: 512Mi
+replicas: 1
+persistence:
+  enabled: false
+mode: standalone
+rootUser: rootuser
+rootPassword: rootpass123
