@@ -52,6 +52,9 @@ nextcloud:
           env:
             - name: "PGAUTO_ONESHOT"
               value: "yes"
+          envFrom:
+            - secretRef:
+                name: *nextcloud-db-secret
           volumeMounts:
             - mountPath: "/bitnami/postgresql"
               name: "data"
