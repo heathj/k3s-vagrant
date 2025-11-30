@@ -2,3 +2,5 @@ dbSecretName: nextcloud-db-secret
 storage:
   size: 100Gi
 instances: 1
+clusterName: nextcloud-cluster
+dbName: nextcloud

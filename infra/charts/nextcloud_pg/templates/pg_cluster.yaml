@@ -1,14 +1,14 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: nextcloud-db
+  name: {{ .Values.clusterName }}
 spec:
   instances: {{ .Values.instances }}
   storage:
     size: {{ .Values.storage.size }}
   managed:
     roles:
-    - name: nextcloud
+    - name: {{ .Values.dbName }}
       ensure: present
       login: true
       superuser: false
