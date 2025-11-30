@@ -1,0 +1,4 @@
+apiVersion: v2
+name: nextcloud_pg
+type: application
+version: 0.1.0
