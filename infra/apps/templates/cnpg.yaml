@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cnpg
+  namespace: {{ .Values.spec.namespace }}
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://cloudnative-pg.github.io/charts
+    chart: cloudnative-pg
+    targetRevision: 0.26.1
+    helm:
+      values: |
+        {{- .Files.Get "values/cnpg_values.yaml" | nindent 8 }}
+  destination:
+    server: {{ .Values.spec.destination.server }}
+    namespace: cnpg
+  syncPolicy: 
+    {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
