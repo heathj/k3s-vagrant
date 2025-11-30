@@ -41,8 +41,8 @@ nextcloud:
       secretName: &nextcloud-db-secret nextcloud-db-secret
       usernameKey: &usernameKey db-username
       passwordKey: &passwordKey db-password
-      hostKey: db-hostname-or-ip
-      databaseKey: db-name
+      hostKey: &hostKey db-hostname-or-ip
+      databaseKey: &databaseKey db-name
   postgresql:
     enabled: true
     primary:
@@ -52,9 +52,26 @@ nextcloud:
           env:
             - name: "PGAUTO_ONESHOT"
               value: "yes"
-          envFrom:
-            - secretRef:
-                name: *nextcloud-db-secret
+            - name: "POSTGRES_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: *nextcloud-db-secret
+                  key: *passwordKey
+            - name: "POSTGRES_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: *nextcloud-db-secret
+                  key: *usernameKey
+            - name: "POSTGRES_DB"
+              valueFrom:
+                secretKeyRef:
+                  name: *nextcloud-db-secret
+                  key: *databaseKey
+            - name: "POSTGRES_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: *nextcloud-db-secret
+                  key: *hostKey
           volumeMounts:
             - mountPath: "/bitnami/postgresql"
               name: "data"
