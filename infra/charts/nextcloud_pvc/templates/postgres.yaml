@@ -10,5 +10,7 @@ spec:
     roles:
     - name: nextcloud
       ensure: present
+      login: true
+      superuser: false
       passwordSecret:
         name: nextcloud-db-secret
