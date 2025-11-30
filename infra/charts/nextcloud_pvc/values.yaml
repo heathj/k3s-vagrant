@@ -1,6 +1,3 @@
-global:
-  security:
-    allowInsecureImages: true #required for bitnamilegacy repos
 nextcloud:
   domain: &domain files.jacobheath.xyz
   nextcloud:
@@ -46,25 +43,25 @@ nextcloud:
       passwordKey: &passwordKey db-password
       hostKey: &hostKey db-hostname-or-ip
       databaseKey: &databaseKey db-name
-  postgresql:
-    image:
-      repository: bitnamilegacy/postgresql
-    enabled: true
-    primary:
-      resources:
-        limits:
-          cpu: "2"
-          memory: 2Gi
-        requests:
-          cpu: "2"
-          memory: 2Gi
-    global:
-      postgresql:
-        auth:
-          existingSecret: *nextcloud-db-secret
-          secretKeys:
-            adminPasswordKey: *passwordKey
-            userPasswordKey: *passwordKey
+  # postgresql:
+  #   image:
+  #     repository: bitnamilegacy/postgresql
+  #   enabled: false
+  #   primary:
+  #     resources:
+  #       limits:
+  #         cpu: "2"
+  #         memory: 2Gi
+  #       requests:
+  #         cpu: "2"
+  #         memory: 2Gi
+  #   global:
+  #     postgresql:
+  #       auth:
+  #         existingSecret: *nextcloud-db-secret
+  #         secretKeys:
+  #           adminPasswordKey: *passwordKey
+  #           userPasswordKey: *passwordKey
   redis:
     image:
       repository: bitnamilegacy/redis

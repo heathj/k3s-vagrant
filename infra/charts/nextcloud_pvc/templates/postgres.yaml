@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: nextcloud-db
+spec:
+  instances: 1
+  storage:
+    size: 100Gi
+  managed:
+    roles:
+    - name: nextcloud
+      ensure: present
+      passwordSecret:
+        name: nextcloud-db-secret
