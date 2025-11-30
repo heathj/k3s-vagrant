@@ -1,3 +1,6 @@
+global:
+  security:
+    allowInsecureImages: true #required for bitnamilegacy repos
 nextcloud:
   domain: &domain files.jacobheath.xyz
   nextcloud:
@@ -44,37 +47,10 @@ nextcloud:
       hostKey: &hostKey db-hostname-or-ip
       databaseKey: &databaseKey db-name
   postgresql:
+    image:
+      repository: bitnamilegacy/postgresql
     enabled: true
     primary:
-      # initContainers:
-      #   - name: upgrade
-      #     image: "pgautoupgrade/pgautoupgrade:17-alpine"
-      #     env:
-      #       - name: "PGAUTO_ONESHOT"
-      #         value: "yes"
-      #       - name: "POSTGRES_PASSWORD"
-      #         valueFrom:
-      #           secretKeyRef:
-      #             name: *nextcloud-db-secret
-      #             key: *passwordKey
-      #       - name: "POSTGRES_USER"
-      #         valueFrom:
-      #           secretKeyRef:
-      #             name: *nextcloud-db-secret
-      #             key: *usernameKey
-      #       - name: "POSTGRES_DB"
-      #         valueFrom:
-      #           secretKeyRef:
-      #             name: *nextcloud-db-secret
-      #             key: *databaseKey
-      #       - name: "POSTGRES_HOST"
-      #         valueFrom:
-      #           secretKeyRef:
-      #             name: *nextcloud-db-secret
-      #             key: *hostKey
-      #     volumeMounts:
-      #       - mountPath: "/bitnami/postgresql"
-      #         name: "data"
       resources:
         limits:
           cpu: "2"
@@ -90,6 +66,8 @@ nextcloud:
             adminPasswordKey: *passwordKey
             userPasswordKey: *passwordKey
   redis:
+    image:
+      repository: bitnamilegacy/redis
     enabled: true
     master:
       resources:
