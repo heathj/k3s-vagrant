@@ -1,16 +1,17 @@
 image:
   registry: lscr.io/linuxserver
   repository: plex
-  tag: "arm64v8-1.32.8"
+  tag: "arm64v8-1.41.6"
 pms:
   # the volume size to provision for the PMS database
   configStorage: 2Gi
-  limits:
-    cpu: 4
-    memory: 4Gi
-  requests:
-    cpu: 2
-    memory: 1Gi
+  resources:
+    limits:
+      cpu: 4
+      memory: 5.5Gi
+    requests:
+      cpu: 4
+      memory: 5.5Gi
 service:
   type: ClusterIP
   port: 32400
