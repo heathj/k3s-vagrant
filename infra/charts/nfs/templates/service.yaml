@@ -12,7 +12,7 @@ spec:
     - name: mountd
       port: 20048
       targetPort: 20048
-      nodePort: 300048
+      nodePort: 30048
     - name: rpcbind
       port: 111
       targetPort: 111
