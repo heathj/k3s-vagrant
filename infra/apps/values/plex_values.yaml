@@ -25,7 +25,7 @@ extraVolumes:
       server: nfs-service.nfs.svc.cluster.local
       path: /treebeard
 ingress:
-  enabled: true
+  enabled: false
   url: plex.jacobheath.xyz
   ingressClassName: traefik
   annotations:
