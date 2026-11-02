@@ -80,6 +80,9 @@ nextcloud:
       existingSecretPasswordKey: redis-password
   metrics:
     enabled: true
+  phpConfigs:
+    zz-memory-limit.ini: |-
+      memory_limit=2G
   resources:
     limits:
       cpu: 2
