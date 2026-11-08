@@ -41,7 +41,7 @@ spec:
             - name: TS_CLIENT_ID
               value: TBDDCT6opx11CNTRL-knZU5uQVN911CNTRL?ephemeral=false&preauthorized=true
             - name: TS_EXTRA_ARGS
-              value: --advertise-exit-node --advertise-tags=tag:home-lab-exit-node
+              value: --advertise-exit-node --advertise-tags=tag:home-lab-exit-node --ssh
             - name: TS_HOSTNAME
               value: home-lab-exit-node
             - name: TS_ID_TOKEN
