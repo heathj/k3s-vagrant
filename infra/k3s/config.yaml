@@ -1,3 +1,8 @@
 # place in /etc/rancher/k3s/config.yaml
 
 disable: traefik
+kube-apiserver-arg:
+  - anonymous-auth=true
+  - service-account-issuer=https://oidc.jacobheath.xyz
+  - service-account-issuer=https://kubernetes.default.svc.cluster.local
+  - service-account-jwks-uri=https://oidc.jacobheath.xyz/openid/v1/jwks
