@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tailscale-exit-node
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: tailscale-exit-node
+  template:
+    metadata:
+      labels:
+        app: tailscale-exit-node
+    spec:
+      serviceAccountName: exit-node
+      securityContext:
+        sysctls:
+          - name: net.ipv4.ip_forward
+            value: "1"
+          - name: net.ipv6.conf.all.forwarding
+            value: "1"
+      initContainers:
+        - name: routing
+          image: busybox:1.37.0
+          command:
+            - sysctl
+            - -w
+            - net.ipv4.conf.all.src_valid_mark=1
+          securityContext:
+            privileged: true
+      containers:
+        - name: tailscale
+          image: tailscale/tailscale:v1.104.4
+          env:
+            - name: TS_ACCEPT_DNS
+              value: "false"
+            - name: TS_AUTH_ONCE
+              value: "true"
+            - name: TS_CLIENT_ID
+              value: TBDDCT6opx11CNTRL-knZU5uQVN911CNTRL?ephemeral=false&preauthorized=true
+            - name: TS_EXTRA_ARGS
+              value: --advertise-exit-node --advertise-tags=tag:home-lab-exit-node
+            - name: TS_HOSTNAME
+              value: home-lab-exit-node
+            - name: TS_ID_TOKEN
+              value: file:/var/run/secrets/tailscale/identity-token
+            - name: TS_KUBE_SECRET
+              value: tailscale-exit-node
+            - name: TS_USERSPACE
+              value: "false"
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          volumeMounts:
+            - name: identity-token
+              mountPath: /var/run/secrets/tailscale
+              readOnly: true
+            - name: tun
+              mountPath: /dev/net/tun
+      volumes:
+        - name: identity-token
+          projected:
+            sources:
+              - serviceAccountToken:
+                  audience: api.tailscale.com/TBDDCT6opx11CNTRL-knZU5uQVN911CNTRL
+                  expirationSeconds: 3600
+                  path: identity-token
+        - name: tun
+          hostPath:
+            path: /dev/net/tun
+            type: CharDevice
