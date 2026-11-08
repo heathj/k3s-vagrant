@@ -48,6 +48,8 @@ spec:
               value: file:/var/run/secrets/tailscale/identity-token
             - name: TS_KUBE_SECRET
               value: tailscale-exit-node
+            - name: TS_ROUTES
+              value: 10.0.4.0/24
             - name: TS_USERSPACE
               value: "false"
           securityContext:
